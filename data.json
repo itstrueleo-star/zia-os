@@ -62,9 +62,12 @@
             ]
           },
           "tribal_psychology": {
-            "title": "Tribal Psychology",
             "summary": "Humans evolved through tribe-based survival behavior.",
-            "deep_dive": "Identity and conflict were shaped by group survival dynamics.",
+            "details": [
+              "Identity depended on group belonging.",
+              "Out-group fear increased survival probability.",
+              "Modern politics exploits tribal instincts."
+            ],
             "connections": [
               "attention_economy",
               "narrative_control",
@@ -72,20 +75,28 @@
             ]
           },
           "dopamine_feedback_loops": {
-            "title": "Dopamine Feedback Loops",
             "summary": "Digital systems exploit reward circuitry.",
-            "deep_dive": "Infinite scrolling and unpredictable rewards condition behavior.",
+            "details": [
+              "Unpredictable rewards increase engagement.",
+              "Infinite scrolling mimics gambling psychology.",
+              "Attention becomes chemically conditioned."
+            ],
             "connections": [
               "attention_economy",
-              "algorithmic_media"
+              "algorithmic_media",
+              "psychological_manipulation"
             ]
           },
           "narrative_control": {
-            "title": "Narrative Control",
             "summary": "Power systems shape collective perception.",
-            "deep_dive": "Media and institutions compete to influence cognition.",
+            "details": [
+              "Narratives influence emotional interpretation.",
+              "Media systems shape public cognition.",
+              "Information warfare targets belief systems."
+            ],
             "connections": [
               "tribal_psychology",
+              "algorithmic_media",
               "institutional_decay"
             ]
           }
@@ -116,47 +127,6 @@
               }
             }
           }
-        }
-      },
-      "Civilization Systems": {
-        "tribal_psychology": {
-          "summary": "Humans evolved through tribe-based survival behavior.",
-          "details": [
-            "Identity depended on group belonging.",
-            "Out-group fear increased survival probability.",
-            "Modern politics exploits tribal instincts."
-          ],
-          "connections": [
-            "attention_economy",
-            "narrative_control",
-            "status_hierarchies"
-          ]
-        },
-        "dopamine_feedback_loops": {
-          "summary": "Digital systems exploit reward circuitry.",
-          "details": [
-            "Unpredictable rewards increase engagement.",
-            "Infinite scrolling mimics gambling psychology.",
-            "Attention becomes chemically conditioned."
-          ],
-          "connections": [
-            "attention_economy",
-            "algorithmic_media",
-            "psychological_manipulation"
-          ]
-        },
-        "narrative_control": {
-          "summary": "Power systems shape collective perception.",
-          "details": [
-            "Narratives influence emotional interpretation.",
-            "Media systems shape public cognition.",
-            "Information warfare targets belief systems."
-          ],
-          "connections": [
-            "tribal_psychology",
-            "algorithmic_media",
-            "institutional_decay"
-          ]
         }
       }
     }
