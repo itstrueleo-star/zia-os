@@ -223,6 +223,53 @@ margin-bottom:16px;
 
 }
 
+
+
+@media(max-width:768px){
+
+.app{
+display:block !important;
+height:auto !important;
+}
+
+.sidebar{
+width:100% !important;
+height:auto !important;
+border-right:none !important;
+}
+
+.content{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#01051b;
+z-index:999;
+overflow-y:auto;
+padding:20px;
+}
+
+.content.active{
+display:block;
+}
+
+.mobile-back{
+display:block;
+margin-bottom:20px;
+padding:14px 20px;
+background:#24324f;
+border:none;
+color:white;
+border-radius:14px;
+font-size:18px;
+cursor:pointer;
+}
+
+}
+
+
 </style>
 </head>
 
@@ -245,6 +292,11 @@ placeholder="Search systems..."
 </div>
 
 <div class="content" id="contentArea">
+
+<button class="mobile-back" id="mobileBackBtn">
+← Back
+</button>
+
 
 <div id="breadcrumbs"></div>
 
@@ -582,6 +634,42 @@ renderSidebar(e.target.value);
 });
 
 renderSidebar();
+
+
+
+document.getElementById("mobileBackBtn").onclick = ()=>{
+
+document.getElementById("contentArea")
+.classList.remove("active");
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+};
+
+const originalRenderNode = renderNode;
+
+renderNode = function(node, addToHistory=true){
+
+originalRenderNode(node, addToHistory);
+
+if(window.innerWidth <= 768){
+
+document.getElementById("contentArea")
+.classList.add("active");
+
+document.getElementById("contentArea")
+.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+};
+
 
 </script>
 
