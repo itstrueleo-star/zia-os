@@ -100,6 +100,40 @@
               "governance"
             ],
             "title": "Narrative Control"
+          },
+          "psychology": {
+            "title": "Psychology",
+            "summary": "Human cognition shapes civilization behavior.",
+            "connections": [
+              "tribal_psychology",
+              "dopamine_feedback_loops",
+              "narrative_control"
+            ]
+          },
+          "economics": {
+            "title": "Economics",
+            "summary": "Resource coordination systems shape societies.",
+            "connections": [
+              "governance",
+              "resource_scarcity"
+            ]
+          },
+          "media": {
+            "title": "Media",
+            "summary": "Information systems shape collective perception.",
+            "connections": [
+              "narrative_control",
+              "dopamine_feedback_loops"
+            ]
+          },
+          "civilization": {
+            "title": "Civilization",
+            "summary": "Large-scale human coordination systems.",
+            "connections": [
+              "governance",
+              "resource_scarcity",
+              "tribal_psychology"
+            ]
           }
         }
       },
