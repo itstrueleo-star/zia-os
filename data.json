@@ -14,10 +14,25 @@
                         "title": "Failure of Modern Education",
                         "summary": "Subjects disconnected from reality.",
                         "deep_dive": "Modern education isolates knowledge into artificial categories instead of interconnected systems.",
+                        "sections": {
+                            "industrial_origin": {
+                                "title": "Industrial Origin",
+                                "content": "Modern schools were designed during industrialization to produce standardized workers."
+                            },
+                            "attention_fragmentation": {
+                                "title": "Attention Fragmentation",
+                                "content": "Subjects are separated artificially, weakening systems thinking."
+                            },
+                            "credential_economy": {
+                                "title": "Credential Economy",
+                                "content": "Degrees became filtering systems instead of proof of real competence."
+                            }
+                        },
                         "connections": [
                             "civilization",
                             "psychology",
-                            "media"
+                            "media",
+                            "economics"
                         ]
                     },
                     "recursive_thinking": {
