@@ -1,29 +1,67 @@
 {
-  "Civilization": {
-    "summary": "Large scale human coordination structure.",
-    "connections": [
-      "Governance",
-      "Economics",
-      "Culture",
-      "Technology"
-    ]
-  },
-  "Governance": {
-    "summary": "Mechanism for organizing collective decision making.",
-    "connections": [
-      "Civilization",
-      "Law",
-      "Power",
-      "Stability"
-    ]
-  },
-  "Collapse Systems": {
-    "summary": "Patterns that destabilize civilizations.",
-    "connections": [
-      "Governance",
-      "Resource Scarcity",
-      "Conflict",
-      "Climate"
-    ]
-  }
+    "zia_system": {
+        "meta": {
+            "version": "0.2",
+            "purpose": "Recursive Civilization Cognition Environment",
+            "status": "Active Development"
+        },
+        "sections": {
+            "zia_origins": {
+                "title": "ZIA Origins",
+                "summary": "Why the project was created.",
+                "nodes": {
+                    "education_failure": {
+                        "title": "Failure of Modern Education",
+                        "summary": "Subjects disconnected from reality.",
+                        "deep_dive": "Modern education isolates knowledge into artificial categories instead of interconnected systems.",
+                        "connections": [
+                            "civilization",
+                            "psychology",
+                            "media"
+                        ]
+                    },
+                    "recursive_thinking": {
+                        "title": "Recursive Thinking",
+                        "summary": "Everything affects everything else.",
+                        "connections": [
+                            "systems",
+                            "governance",
+                            "economics"
+                        ]
+                    }
+                }
+            },
+            "civilization_systems": {
+                "title": "Civilization Systems",
+                "nodes": {
+                    "governance": {
+                        "title": "Governance",
+                        "summary": "Collective coordination mechanisms.",
+                        "history": [],
+                        "failure_patterns": [],
+                        "case_studies": [],
+                        "connections": [
+                            "law",
+                            "power",
+                            "stability"
+                        ]
+                    }
+                }
+            },
+            "deployment_architecture": {
+                "title": "Deployment Architecture",
+                "nodes": {
+                    "cloudflare_pipeline": {
+                        "title": "Cloudflare Deployment",
+                        "summary": "GitHub-connected auto deployment system.",
+                        "steps": [
+                            "Generate files",
+                            "Push to GitHub",
+                            "Cloudflare auto deploy"
+                        ]
+                    }
+                }
+            }
+        }
+    }
 }
