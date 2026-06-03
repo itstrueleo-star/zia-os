@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>ZIA OS</title>
+
+<style>
+
+body{
+
+background:#050816;
+color:white;
+font-family:Arial;
+padding:20px;
+
+}
+
+.container{
+
+max-width:1000px;
+margin:auto;
+
+}
+
+.card{
+
+background:#111827;
+padding:20px;
+border-radius:16px;
+margin-top:20px;
+
+}
+
+select{
+
+width:100%;
+padding:15px;
+font-size:18px;
+background:#1f2937;
+color:white;
+border:none;
+border-radius:10px;
+
+}
+
+h1{
+
+font-size:52px;
+
+}
+
+pre{
+
+white-space:pre-wrap;
+font-size:16px;
+line-height:1.6;
+
+}
+
+.link{
+
+display:inline-block;
+background:#1f2937;
+padding:8px 12px;
+border-radius:10px;
+margin:5px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>ZIA OS</h1>
+
+<p>Recursive Civilization Cognition Environment</p>
+
+<div class="card">
+
+<h2>Select Node</h2>
+
+<select id="nodeSelect"></select>
+
+</div>
+
+<div class="card">
+
+<h2>Node Summary</h2>
+
+<pre id="summary"></pre>
+
+<h2>Connected Systems</h2>
+
+<div id="links"></div>
+
+</div>
+
+</div>
+
+<script>
+
+fetch("data.json")
+
+.then(response => response.json())
+
+.then(data => {
+
+const select =
+document.getElementById("nodeSelect");
+
+const summary =
+document.getElementById("summary");
+
+const links =
+document.getElementById("links");
+
+data.nodes.forEach(node => {
+
+const option =
+document.createElement("option");
+
+option.value = node.id;
+
+option.textContent = node.title;
+
+select.appendChild(option);
+
+});
+
+function updateNode(){
+
+const selectedId =
+parseInt(select.value);
+
+const node =
+data.nodes.find(
+n => n.id === selectedId
+);
+
+summary.textContent =
+node.summary;
+
+links.innerHTML = "";
+
+node.links.forEach(link => {
+
+const div =
+document.createElement("div");
+
+div.className = "link";
+
+div.textContent = link;
+
+links.appendChild(div);
+
+});
+
+}
+
+select.addEventListener(
+"change",
+updateNode
+);
+
+select.value = 1;
+
+updateNode();
+
+});
+
+</script>
+
+</body>
+
+</html>
+
