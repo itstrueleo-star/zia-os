@@ -80,6 +80,23 @@ node.connections.forEach(link => {
 const tag = document.createElement("div");
 tag.className = "tag";
 tag.innerText = link;
+
+tag.onclick = () => {
+
+Object.keys(window.ziaData.zia_system.sections).forEach(sectionKey => {
+
+const section = window.ziaData.zia_system.sections[sectionKey];
+
+if(section.nodes && section.nodes[link]){
+
+renderNode(section.nodes[link]);
+
+}
+
+});
+
+};
+
 connections.appendChild(tag);
 });
 }
