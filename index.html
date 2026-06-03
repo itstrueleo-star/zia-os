@@ -93,6 +93,8 @@ sidebar.appendChild(sectionDiv);
 }
 
 
+
+
 let historyStack = [];
 
 function renderNode(node, pushHistory = true){
@@ -110,7 +112,8 @@ function renderNode(node, pushHistory = true){
 
         historyStack.forEach((item, index) => {
 
-            const crumb = document.createElement("span");
+            const crumb =
+                document.createElement("span");
 
             crumb.className = "breadcrumb";
 
@@ -128,7 +131,8 @@ function renderNode(node, pushHistory = true){
 
                     if(section.nodes){
 
-                        Object.keys(section.nodes).forEach(nodeKey => {
+                        Object.keys(section.nodes)
+                        .forEach(nodeKey => {
 
                             const targetNode =
                                 section.nodes[nodeKey];
@@ -167,14 +171,6 @@ function renderNode(node, pushHistory = true){
 
     }
 
-    const content = document.querySelector(".content");
-
-    content.classList.remove("active-node");
-
-    void content.offsetWidth;
-
-    content.classList.add("active-node");
-
     document.getElementById("nodeTitle").innerText =
         node.title;
 
@@ -186,27 +182,6 @@ function renderNode(node, pushHistory = true){
 
     deepDive.innerHTML =
         "<p>" + (node.deep_dive || "") + "</p>";
-
-    if(node.sections){
-
-        Object.keys(node.sections).forEach(sectionKey => {
-
-            const sec = node.sections[sectionKey];
-
-            const block =
-                document.createElement("div");
-
-            block.className = "subsection";
-
-            block.innerHTML =
-                "<h3>" + sec.title + "</h3><p>" +
-                sec.content + "</p>";
-
-            deepDive.appendChild(block);
-
-        });
-
-    }
 
     const connections =
         document.getElementById("connections");
@@ -253,6 +228,7 @@ function renderNode(node, pushHistory = true){
     }
 
 }
+
 
 loadData();
 </script>
@@ -424,6 +400,143 @@ function renderNode(node, pushHistory = true){
     }
 
 }
+
+
+
+let historyStack = [];
+
+function renderNode(node, pushHistory = true){
+
+    if(pushHistory){
+        historyStack.push(node.title);
+    }
+
+    const breadcrumbContainer =
+        document.getElementById("breadcrumbs");
+
+    if(breadcrumbContainer){
+
+        breadcrumbContainer.innerHTML = "";
+
+        historyStack.forEach((item, index) => {
+
+            const crumb =
+                document.createElement("span");
+
+            crumb.className = "breadcrumb";
+
+            crumb.innerText = item;
+
+            crumb.onclick = () => {
+
+                const targetTitle = item;
+
+                Object.keys(window.ziaData.zia_system.sections)
+                .forEach(sectionKey => {
+
+                    const section =
+                        window.ziaData.zia_system.sections[sectionKey];
+
+                    if(section.nodes){
+
+                        Object.keys(section.nodes)
+                        .forEach(nodeKey => {
+
+                            const targetNode =
+                                section.nodes[nodeKey];
+
+                            if(targetNode.title === targetTitle){
+
+                                historyStack =
+                                    historyStack.slice(0, index + 1);
+
+                                renderNode(targetNode, false);
+
+                            }
+
+                        });
+
+                    }
+
+                });
+
+            };
+
+            breadcrumbContainer.appendChild(crumb);
+
+            if(index < historyStack.length - 1){
+
+                const separator =
+                    document.createElement("span");
+
+                separator.innerText = " > ";
+
+                breadcrumbContainer.appendChild(separator);
+
+            }
+
+        });
+
+    }
+
+    document.getElementById("nodeTitle").innerText =
+        node.title;
+
+    document.getElementById("nodeSummary").innerText =
+        node.summary;
+
+    const deepDive =
+        document.getElementById("deepDive");
+
+    deepDive.innerHTML =
+        "<p>" + (node.deep_dive || "") + "</p>";
+
+    const connections =
+        document.getElementById("connections");
+
+    connections.innerHTML = "";
+
+    if(node.connections){
+
+        node.connections.forEach(link => {
+
+            const tag =
+                document.createElement("div");
+
+            tag.className = "tag";
+
+            tag.innerText =
+                link.replaceAll("_", " ");
+
+            tag.onclick = () => {
+
+                Object.keys(window.ziaData.zia_system.sections)
+                .forEach(sectionKey => {
+
+                    const section =
+                        window.ziaData.zia_system.sections[sectionKey];
+
+                    if(section.nodes &&
+                       section.nodes[link]){
+
+                        renderNode(
+                            section.nodes[link]
+                        );
+
+                    }
+
+                });
+
+            };
+
+            connections.appendChild(tag);
+
+        });
+
+    }
+
+}
+
 
 loadData();
 </script>
