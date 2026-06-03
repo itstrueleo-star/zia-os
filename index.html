@@ -117,6 +117,24 @@ transform:translateX(0px);
 
 <div class="sidebar" id="sidebar">
 
+<input
+id="searchBox"
+type="text"
+placeholder="Search systems..."
+style="
+width:100%;
+padding:16px;
+margin-bottom:20px;
+border-radius:12px;
+border:none;
+background:#1e293b;
+color:white;
+font-size:16px;
+"
+/>
+
+
+
 <h1>ZIA</h1>
 
 </div>
@@ -225,6 +243,49 @@ scores[otherKey] =
 });
 
 return Object.keys(scores);
+
+}
+
+
+
+
+function searchOntology(query){
+
+query = query.toLowerCase();
+
+const results = [];
+
+Object.keys(window.ziaData.zia_system.sections)
+.forEach(sectionKey => {
+
+const section =
+window.ziaData.zia_system.sections[sectionKey];
+
+if(section.nodes){
+
+Object.keys(section.nodes).forEach(nodeKey => {
+
+const node = section.nodes[nodeKey];
+
+const searchable =
+(node.title + " " +
+(node.summary || "") + " " +
+(node.connections || []).join(" "))
+.toLowerCase();
+
+if(searchable.includes(query)){
+
+results.push(node);
+
+}
+
+});
+
+}
+
+});
+
+return results;
 
 }
 
@@ -380,6 +441,29 @@ connections.appendChild(tag);
 }
 
 loadData();
+
+
+document.getElementById("searchBox")
+.addEventListener("input", (e) => {
+
+const value = e.target.value;
+
+if(value.length < 2){
+return;
+}
+
+const results =
+searchOntology(value);
+
+if(results.length > 0){
+
+renderNode(results[0]);
+
+}
+
+});
+
+
 
 </script>
 
