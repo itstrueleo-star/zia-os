@@ -56,9 +56,9 @@
             "failure_patterns": [],
             "case_studies": [],
             "connections": [
-              "law",
-              "power",
-              "stability"
+              "tribal_psychology",
+              "narrative_control",
+              "dopamine_feedback_loops"
             ]
           },
           "tribal_psychology": {
@@ -69,9 +69,9 @@
               "Modern politics exploits tribal instincts."
             ],
             "connections": [
-              "attention_economy",
+              "governance",
               "narrative_control",
-              "status_hierarchies"
+              "dopamine_feedback_loops"
             ],
             "title": "Tribal Psychology"
           },
@@ -83,9 +83,8 @@
               "Attention becomes chemically conditioned."
             ],
             "connections": [
-              "attention_economy",
-              "algorithmic_media",
-              "psychological_manipulation"
+              "tribal_psychology",
+              "narrative_control"
             ],
             "title": "Dopamine Feedback Loops"
           },
@@ -98,8 +97,7 @@
             ],
             "connections": [
               "tribal_psychology",
-              "algorithmic_media",
-              "institutional_decay"
+              "governance"
             ],
             "title": "Narrative Control"
           }
