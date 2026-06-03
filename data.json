@@ -60,6 +60,34 @@
               "power",
               "stability"
             ]
+          },
+          "tribal_psychology": {
+            "title": "Tribal Psychology",
+            "summary": "Humans evolved through tribe-based survival behavior.",
+            "deep_dive": "Identity and conflict were shaped by group survival dynamics.",
+            "connections": [
+              "attention_economy",
+              "narrative_control",
+              "status_hierarchies"
+            ]
+          },
+          "dopamine_feedback_loops": {
+            "title": "Dopamine Feedback Loops",
+            "summary": "Digital systems exploit reward circuitry.",
+            "deep_dive": "Infinite scrolling and unpredictable rewards condition behavior.",
+            "connections": [
+              "attention_economy",
+              "algorithmic_media"
+            ]
+          },
+          "narrative_control": {
+            "title": "Narrative Control",
+            "summary": "Power systems shape collective perception.",
+            "deep_dive": "Media and institutions compete to influence cognition.",
+            "connections": [
+              "tribal_psychology",
+              "institutional_decay"
+            ]
           }
         }
       },
