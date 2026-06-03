@@ -65,15 +65,28 @@
             },
             "deployment_architecture": {
                 "title": "Deployment Architecture",
+                "summary": "",
+                "nodes": {}
+            },
+            "collapse_systems": {
+                "title": "Collapse Systems",
+                "summary": "",
                 "nodes": {
-                    "cloudflare_pipeline": {
-                        "title": "Cloudflare Deployment",
-                        "summary": "GitHub-connected auto deployment system.",
-                        "steps": [
-                            "Generate files",
-                            "Push to GitHub",
-                            "Cloudflare auto deploy"
-                        ]
+                    "resource_scarcity": {
+                        "title": "Resource Scarcity",
+                        "summary": "Civilizations destabilize when resources become constrained.",
+                        "deep_dive": "Scarcity creates migration pressure and instability.",
+                        "connections": [
+                            "economics",
+                            "conflict",
+                            "governance"
+                        ],
+                        "sections": {
+                            "food_systems": {
+                                "title": "Food Systems",
+                                "content": "Agriculture failures destabilized civilizations."
+                            }
+                        }
                     }
                 }
             }

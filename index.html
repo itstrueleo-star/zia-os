@@ -1,286 +1,90 @@
-
-
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ZIA OS</title>
-
 <style>
-
-body{
-
-margin:0;
-background:#020617;
-color:white;
-font-family:Arial,sans-serif;
-display:flex;
-height:100vh;
-
-}
-
-.sidebar{
-
-width:320px;
-background:#07122b;
-padding:20px;
-overflow-y:auto;
-border-right:2px solid #1e293b;
-
-}
-
-.sidebar h2{
-
-margin-bottom:30px;
-
-}
-
-.section{
-
-margin-bottom:20px;
-
-}
-
-.section-title{
-
-font-size:20px;
-font-weight:bold;
-margin-bottom:10px;
-color:#93c5fd;
-
-}
-
-.node{
-
-background:#1e293b;
-padding:12px;
-border-radius:12px;
-margin-bottom:10px;
-cursor:pointer;
-
-}
-
-.node:hover{
-
-background:#334155;
-
-}
-
-.main{
-
-flex:1;
-padding:40px;
-overflow-y:auto;
-
-}
-
-.title{
-
-font-size:54px;
-margin-bottom:10px;
-
-}
-
-.subtitle{
-
-color:#94a3b8;
-margin-bottom:40px;
-
-}
-
-.card{
-
-background:#07122b;
-padding:30px;
-border-radius:24px;
-margin-bottom:30px;
-
-}
-
-.connections{
-
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-top:20px;
-
-}
-
-.tag{
-
-background:#1e293b;
-padding:10px 16px;
-border-radius:12px;
-
-}
-
+body{margin:0;background:#020617;color:white;font-family:Arial,sans-serif;display:flex;height:100vh;}
+.sidebar{width:320px;background:#07122b;padding:20px;overflow-y:auto;border-right:2px solid #1e293b;}
+.section{margin-bottom:20px;}
+.section-title{font-size:20px;font-weight:bold;margin-bottom:10px;color:#93c5fd;}
+.node{background:#1e293b;padding:12px;border-radius:12px;margin-bottom:10px;cursor:pointer;}
+.main{flex:1;padding:40px;overflow-y:auto;}
+.card{background:#07122b;padding:30px;border-radius:24px;}
+.subsection{margin-top:20px;padding:20px;background:#0f172a;border-radius:16px;}
+.connections{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
+.tag{background:#1e293b;padding:10px 16px;border-radius:12px;}
 </style>
-
 </head>
-
 <body>
-
 <div class="sidebar">
-
-<h2>ZIA SYSTEM</h2>
-
+<h1>ZIA</h1>
 <div id="sidebar"></div>
-
 </div>
-
 <div class="main">
-
-<div class="title">
-ZIA OS
-</div>
-
-<div class="subtitle">
-Recursive Civilization Cognition Environment
-</div>
-
 <div class="card">
-
-<h1 id="nodeTitle">
-Select a node
-</h1>
-
+<h1 id="nodeTitle">Select Node</h1>
 <p id="nodeSummary"></p>
-
 <div id="deepDive"></div>
-
-<div class="connections"
-id="connections"></div>
-
+<div id="connections" class="connections"></div>
 </div>
-
 </div>
-
 <script>
-
 let DATA = {};
-
 async function loadData(){
-
-const response =
-await fetch("data.json");
-
+const response = await fetch("data.json");
 DATA = await response.json();
-
 buildSidebar();
-
 }
-
 function buildSidebar(){
-
-const sidebar =
-document.getElementById("sidebar");
-
-const sections =
-DATA.zia_system.sections;
-
-Object.keys(sections).forEach(key => {
-
-const section =
-sections[key];
-
-const sectionDiv =
-document.createElement("div");
-
+const sidebar = document.getElementById("sidebar");
+const sections = DATA.zia_system.sections;
+Object.keys(sections).forEach(sectionKey => {
+const section = sections[sectionKey];
+const sectionDiv = document.createElement("div");
 sectionDiv.className = "section";
-
-const title =
-document.createElement("div");
-
+const title = document.createElement("div");
 title.className = "section-title";
-
-title.innerText =
-section.title;
-
+title.innerText = section.title;
 sectionDiv.appendChild(title);
-
-Object.keys(section.nodes)
-.forEach(nodeKey => {
-
-const node =
-section.nodes[nodeKey];
-
-const nodeDiv =
-document.createElement("div");
-
+Object.keys(section.nodes).forEach(nodeKey => {
+const node = section.nodes[nodeKey];
+const nodeDiv = document.createElement("div");
 nodeDiv.className = "node";
-
-nodeDiv.innerText =
-node.title;
-
-nodeDiv.onclick = () => {
-
-renderNode(node);
-
-};
-
+nodeDiv.innerText = node.title;
+nodeDiv.onclick = () => renderNode(node);
 sectionDiv.appendChild(nodeDiv);
-
 });
-
 sidebar.appendChild(sectionDiv);
-
 });
-
 }
-
 function renderNode(node){
-
-document.getElementById(
-"nodeTitle"
-).innerText = node.title;
-
-document.getElementById(
-"nodeSummary"
-).innerText = node.summary;
-
-document.getElementById(
-"deepDive"
-).innerText =
-node.deep_dive || "";
-
-const connections =
-document.getElementById(
-"connections"
-);
-
-connections.innerHTML = "";
-
-if(node.connections){
-
-node.connections.forEach(link => {
-
-const tag =
-document.createElement("div");
-
-tag.className = "tag";
-
-tag.innerText = link;
-
-connections.appendChild(tag);
-
+document.getElementById("nodeTitle").innerText = node.title;
+document.getElementById("nodeSummary").innerText = node.summary;
+const deepDive = document.getElementById("deepDive");
+deepDive.innerHTML = "<p>" + (node.deep_dive || "") + "</p>";
+if(node.sections){
+Object.keys(node.sections).forEach(sectionKey => {
+const sec = node.sections[sectionKey];
+const block = document.createElement("div");
+block.className = "subsection";
+block.innerHTML = "<h3>" + sec.title + "</h3><p>" + sec.content + "</p>";
+deepDive.appendChild(block);
 });
-
 }
-
+const connections = document.getElementById("connections");
+connections.innerHTML = "";
+if(node.connections){
+node.connections.forEach(link => {
+const tag = document.createElement("div");
+tag.className = "tag";
+tag.innerText = link;
+connections.appendChild(tag);
+});
 }
-
+}
 loadData();
-
 </script>
-
 </body>
-
 </html>
-
