@@ -192,6 +192,43 @@ sidebar.appendChild(nodeDiv);
 
 }
 
+
+
+function calculateRelatedness(nodeKey){
+
+let scores = {};
+
+Object.keys(window.ziaData.zia_system.sections)
+.forEach(sectionKey => {
+
+const section =
+window.ziaData.zia_system.sections[sectionKey];
+
+if(section.nodes){
+
+Object.keys(section.nodes).forEach(otherKey => {
+
+const otherNode = section.nodes[otherKey];
+
+if(otherNode.connections &&
+   otherNode.connections.includes(nodeKey)){
+
+scores[otherKey] =
+(scores[otherKey] || 0) + 1;
+
+}
+
+});
+
+}
+
+});
+
+return Object.keys(scores);
+
+}
+
+
 function renderNode(node, pushHistory=true){
 
 if(pushHistory){
@@ -250,6 +287,41 @@ const connections =
 document.getElementById("connections");
 
 connections.innerHTML = "";
+
+// ===== RELATED SYSTEMS =====
+
+const related =
+calculateRelatedness(
+node.title
+.toLowerCase()
+.replaceAll(" ","_")
+);
+
+if(related.length > 0){
+
+const relatedTitle =
+document.createElement("h3");
+
+relatedTitle.innerText =
+"Related Systems";
+
+connections.appendChild(relatedTitle);
+
+related.forEach(item => {
+
+const rel =
+document.createElement("div");
+
+rel.className = "tag";
+
+rel.innerText =
+item.replaceAll("_"," ");
+
+connections.appendChild(rel);
+
+});
+
+}
 
 if(node.connections){
 
