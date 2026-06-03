@@ -317,6 +317,24 @@ rel.className = "tag";
 rel.innerText =
 item.replaceAll("_"," ");
 
+rel.onclick = () => {
+
+Object.keys(window.ziaData.zia_system.sections)
+.forEach(sectionKey => {
+
+const section =
+window.ziaData.zia_system.sections[sectionKey];
+
+if(section.nodes && section.nodes[item]){
+
+renderNode(section.nodes[item]);
+
+}
+
+});
+
+};
+
 connections.appendChild(rel);
 
 });
