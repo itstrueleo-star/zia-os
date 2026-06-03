@@ -72,7 +72,8 @@
               "attention_economy",
               "narrative_control",
               "status_hierarchies"
-            ]
+            ],
+            "title": "Tribal Psychology"
           },
           "dopamine_feedback_loops": {
             "summary": "Digital systems exploit reward circuitry.",
@@ -85,7 +86,8 @@
               "attention_economy",
               "algorithmic_media",
               "psychological_manipulation"
-            ]
+            ],
+            "title": "Dopamine Feedback Loops"
           },
           "narrative_control": {
             "summary": "Power systems shape collective perception.",
@@ -98,7 +100,8 @@
               "tribal_psychology",
               "algorithmic_media",
               "institutional_decay"
-            ]
+            ],
+            "title": "Narrative Control"
           }
         }
       },

@@ -77,8 +77,16 @@ const connections = document.getElementById("connections");
 connections.innerHTML = "";
 if(node.connections){
 node.connections.forEach(link => {
-const tag = document.createElement("div");
+
+const tag = document.createElement("button");
+
+
 tag.className = "tag";
+
+tag.style.cursor = "pointer";
+tag.style.border = "none";
+tag.style.outline = "none";
+
 tag.innerText = link;
 
 tag.onclick = () => {
