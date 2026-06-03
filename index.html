@@ -1,24 +1,25 @@
 
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ZIA OS</title>
-
-
+<title>ZIA</title>
 
 <style>
 
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial,sans-serif;
-background:#020b2d;
+}
+
+body{
+background:#01051b;
 color:white;
-overflow-x:hidden;
+overflow:hidden;
 }
 
 .app{
@@ -26,70 +27,129 @@ display:flex;
 height:100vh;
 }
 
+/* SIDEBAR */
+
 .sidebar{
-width:320px;
-background:#02164a;
+width:340px;
+background:#001b63;
 padding:20px;
 overflow-y:auto;
-border-right:1px solid rgba(255,255,255,0.1);
+border-right:2px solid rgba(255,255,255,0.1);
 }
 
-.content{
-flex:1;
-padding:24px;
-overflow-y:auto;
+.logo{
+font-size:54px;
+font-weight:bold;
+margin-bottom:24px;
+}
+
+.search{
+width:100%;
+padding:16px;
+font-size:18px;
+border:none;
+outline:none;
+border-radius:18px;
+background:#24324f;
+color:white;
+margin-bottom:24px;
+}
+
+.section{
+margin-bottom:26px;
+}
+
+.section-title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:12px;
 }
 
 .node{
-background:#1e2c47;
+background:#24324f;
 padding:20px;
+border-radius:22px;
 margin-bottom:14px;
-border-radius:18px;
 cursor:pointer;
+transition:0.2s;
 font-size:18px;
 }
 
-.node-card{
-background:#0c2a70;
-padding:32px;
-border-radius:24px;
-max-width:850px;
+.node:hover{
+background:#33476e;
+transform:scale(1.02);
 }
 
-.tag{
-display:inline-block;
-background:#5d6779;
-padding:12px 18px;
-margin:6px;
-border-radius:14px;
-cursor:pointer;
-border:none;
-color:white;
-font-size:16px;
+/* CONTENT */
+
+.content{
+flex:1;
+overflow-y:auto;
+padding:24px;
+scroll-behavior:smooth;
 }
 
-#searchBox{
-width:100%;
-padding:18px;
-font-size:18px;
-border-radius:16px;
-border:none;
-margin-bottom:24px;
-background:#1e2c47;
-color:white;
-box-sizing:border-box;
-}
-
-.breadcrumbs{
+#breadcrumbs{
 margin-bottom:18px;
+font-size:15px;
 line-height:1.6;
-font-size:14px;
+opacity:0.7;
 word-break:break-word;
 }
 
-/* MOBILE FIX */
+.card{
+background:#072b7a;
+padding:40px;
+border-radius:28px;
+max-width:950px;
+}
 
-@media (max-width:768px){
+.card h1{
+font-size:58px;
+margin-bottom:20px;
+}
+
+.card p{
+font-size:24px;
+line-height:1.7;
+margin-bottom:24px;
+}
+
+.related-title{
+font-size:32px;
+font-weight:bold;
+margin-bottom:18px;
+}
+
+.tags{
+display:flex;
+flex-wrap:wrap;
+gap:16px;
+}
+
+.tag{
+border:none;
+padding:16px 24px;
+border-radius:18px;
+background:#8d95aa;
+color:white;
+cursor:pointer;
+font-size:20px;
+transition:0.2s;
+}
+
+.tag:hover{
+background:#b1bbd4;
+transform:scale(1.05);
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+body{
+overflow:auto;
+}
 
 .app{
 flex-direction:column;
@@ -100,68 +160,91 @@ height:auto;
 width:100%;
 height:auto;
 border-right:none;
-padding:14px;
-box-sizing:border-box;
+border-bottom:2px solid rgba(255,255,255,0.1);
+padding:16px;
+}
+
+.logo{
+font-size:44px;
+margin-bottom:18px;
+}
+
+.search{
+font-size:20px;
+padding:18px;
+border-radius:20px;
+margin-bottom:20px;
+}
+
+.section-title{
+font-size:20px;
+}
+
+.node{
+font-size:20px;
+padding:22px;
+border-radius:24px;
 }
 
 .content{
 width:100%;
-padding:14px;
-box-sizing:border-box;
+padding:16px;
+overflow-y:visible;
 }
 
-.node-card{
+.card{
 width:100%;
-max-width:100%;
-padding:22px;
-box-sizing:border-box;
+padding:24px;
+border-radius:24px;
 }
 
-.node{
-font-size:16px;
-padding:18px;
+.card h1{
+font-size:44px;
+line-height:1.2;
+}
+
+.card p{
+font-size:22px;
+}
+
+.related-title{
+font-size:28px;
 }
 
 .tag{
-font-size:14px;
-padding:10px 14px;
+font-size:18px;
+padding:14px 18px;
+}
+
+#breadcrumbs{
+font-size:16px;
+margin-bottom:16px;
 }
 
 }
 
 </style>
-
-
-
 </head>
 
 <body>
 
-<div class="sidebar" id="sidebar">
+<div class="app">
+
+<div class="sidebar">
 
 <input
-id="searchBox"
-type="text"
+id="searchInput"
+class="search"
 placeholder="Search systems..."
-style="
-width:100%;
-padding:16px;
-margin-bottom:20px;
-border-radius:12px;
-border:none;
-background:#1e293b;
-color:white;
-font-size:16px;
-"
 />
 
+<div class="logo">ZIA</div>
 
-
-<h1>ZIA</h1>
+<div id="sidebar"></div>
 
 </div>
 
-<div class="content active-node">
+<div class="content" id="contentArea">
 
 <div id="breadcrumbs"></div>
 
@@ -173,7 +256,11 @@ font-size:16px;
 
 <div id="deepDive"></div>
 
-<div id="connections"></div>
+<div class="related-title">Related Systems</div>
+
+<div class="tags" id="connections"></div>
+
+</div>
 
 </div>
 
@@ -181,24 +268,176 @@ font-size:16px;
 
 <script>
 
-
 let historyStack = [];
 
-async function loadData(){
+window.ziaData = {
+zia_system:{
+sections:{
 
-const response = await fetch("data.json");
+zia_origins:{
+title:"ZIA Origins",
+nodes:{
 
-const data = await response.json();
+failure_of_modern_education:{
+title:"Failure of Modern Education",
+summary:"Subjects disconnected from reality.",
+deep_dive:"Modern education isolates knowledge into artificial categories instead of interconnected systems.",
+connections:[
+"psychology",
+"media",
+"economics",
+"recursive_thinking"
+]
+},
 
-window.ziaData = data;
+recursive_thinking:{
+title:"Recursive Thinking",
+summary:"Everything affects everything else.",
+deep_dive:"Systems evolve recursively through feedback loops across civilization.",
+connections:[
+"governance",
+"tribal_psychology",
+"media"
+]
+}
+
+}
+},
+
+civilization_systems:{
+title:"Civilization Systems",
+nodes:{
+
+governance:{
+title:"Governance",
+summary:"Collective coordination mechanisms.",
+deep_dive:"Power structures emerge to stabilize complex societies.",
+connections:[
+"tribal_psychology",
+"narrative_control",
+"dopamine_feedback_loops",
+"resource_scarcity"
+]
+},
+
+tribal_psychology:{
+title:"Tribal Psychology",
+summary:"Humans evolved through tribe-based survival behavior.",
+deep_dive:"Humans optimize for belonging before truth.",
+connections:[
+"governance",
+"narrative_control",
+"dopamine_feedback_loops"
+]
+},
+
+dopamine_feedback_loops:{
+title:"Dopamine Feedback Loops",
+summary:"Digital systems exploit reward circuitry.",
+deep_dive:"Algorithms weaponize attention through intermittent rewards.",
+connections:[
+"governance",
+"tribal_psychology",
+"psychology",
+"media"
+]
+},
+
+narrative_control:{
+title:"Narrative Control",
+summary:"Power systems shape collective perception.",
+deep_dive:"Narratives regulate civilization-scale coordination.",
+connections:[
+"governance",
+"tribal_psychology",
+"dopamine_feedback_loops",
+"psychology",
+"media"
+]
+},
+
+psychology:{
+title:"Psychology",
+summary:"Human behavior operating system.",
+deep_dive:"Civilizations emerge from collective psychology.",
+connections:[
+"media",
+"economics",
+"tribal_psychology"
+]
+},
+
+economics:{
+title:"Economics",
+summary:"Resource coordination system.",
+deep_dive:"Economics governs scarcity and incentives.",
+connections:[
+"media",
+"civilization",
+"governance"
+]
+},
+
+media:{
+title:"Media",
+summary:"Attention architecture of civilization.",
+deep_dive:"Media controls emotional synchronization across society.",
+connections:[
+"narrative_control",
+"psychology",
+"dopamine_feedback_loops"
+]
+},
+
+civilization:{
+title:"Civilization",
+summary:"Large scale human coordination.",
+deep_dive:"Civilizations emerge from recursive systems interacting.",
+connections:[
+"governance",
+"economics",
+"media"
+]
+}
+
+}
+},
+
+collapse_systems:{
+title:"Collapse Systems",
+nodes:{
+
+resource_scarcity:{
+title:"Resource Scarcity",
+summary:"Civilizations destabilize when resources become constrained.",
+deep_dive:"Scarcity amplifies conflict and institutional instability.",
+connections:[
+"economics",
+"governance",
+"civilization"
+]
+}
+
+}
+}
+
+}
+}
+};
+
+function renderSidebar(filter=""){
 
 const sidebar = document.getElementById("sidebar");
 
-const sections = data.zia_system.sections;
+sidebar.innerHTML = "";
 
-Object.keys(sections).forEach(sectionKey => {
+Object.keys(window.ziaData.zia_system.sections).forEach(sectionKey=>{
 
-const section = sections[sectionKey];
+const section = window.ziaData.zia_system.sections[sectionKey];
+
+const sectionDiv = document.createElement("div");
+
+sectionDiv.className = "section";
 
 const title = document.createElement("div");
 
@@ -206,13 +445,13 @@ title.className = "section-title";
 
 title.innerText = section.title;
 
-sidebar.appendChild(title);
+sectionDiv.appendChild(title);
 
-if(section.nodes){
-
-Object.keys(section.nodes).forEach(nodeKey => {
+Object.keys(section.nodes).forEach(nodeKey=>{
 
 const node = section.nodes[nodeKey];
+
+if(node.title.toLowerCase().includes(filter.toLowerCase())){
 
 const nodeDiv = document.createElement("div");
 
@@ -220,235 +459,97 @@ nodeDiv.className = "node";
 
 nodeDiv.innerText = node.title;
 
-nodeDiv.onclick = () => renderNode(node);
+nodeDiv.onclick = ()=>{
 
-sidebar.appendChild(nodeDiv);
+renderNode(node);
 
-});
+};
 
-}
-
-});
-
-}
-
-
-
-function calculateRelatedness(nodeKey){
-
-let scores = {};
-
-Object.keys(window.ziaData.zia_system.sections)
-.forEach(sectionKey => {
-
-const section =
-window.ziaData.zia_system.sections[sectionKey];
-
-if(section.nodes){
-
-Object.keys(section.nodes).forEach(otherKey => {
-
-const otherNode = section.nodes[otherKey];
-
-if(otherNode.connections &&
-   otherNode.connections.includes(nodeKey)){
-
-scores[otherKey] =
-(scores[otherKey] || 0) + 1;
+sectionDiv.appendChild(nodeDiv);
 
 }
 
 });
 
-}
-
-});
-
-return Object.keys(scores);
-
-}
-
-
-
-
-function searchOntology(query){
-
-query = query.toLowerCase();
-
-const results = [];
-
-Object.keys(window.ziaData.zia_system.sections)
-.forEach(sectionKey => {
-
-const section =
-window.ziaData.zia_system.sections[sectionKey];
-
-if(section.nodes){
-
-Object.keys(section.nodes).forEach(nodeKey => {
-
-const node = section.nodes[nodeKey];
-
-const searchable =
-(node.title + " " +
-(node.summary || "") + " " +
-(node.connections || []).join(" "))
-.toLowerCase();
-
-if(searchable.includes(query)){
-
-results.push(node);
-
-}
+sidebar.appendChild(sectionDiv);
 
 });
 
 }
 
-});
+function renderNode(node, addToHistory=true){
 
-return results;
+if(!node) return;
 
-}
+if(addToHistory){
 
+const last = historyStack[historyStack.length-1];
 
-function renderNode(node, pushHistory=true){
-
-if(pushHistory){
+if(last !== node.title){
 historyStack.push(node.title);
 }
 
-const breadcrumbContainer =
-document.getElementById("breadcrumbs");
-
-breadcrumbContainer.innerHTML = "";
-
-historyStack.forEach((item,index)=>{
-
-const crumb = document.createElement("span");
-
-crumb.className = "breadcrumb";
-
-crumb.innerText = item;
-
-breadcrumbContainer.appendChild(crumb);
-
-if(index < historyStack.length-1){
-
-const sep = document.createElement("span");
-
-sep.innerText = " > ";
-
-breadcrumbContainer.appendChild(sep);
-
 }
 
-});
+historyStack = historyStack.slice(-10);
 
-const content =
-document.querySelector(".content");
-
-content.classList.remove("active-node");
-
-void content.offsetWidth;
-
-content.classList.add("active-node");
+document.getElementById("breadcrumbs").innerText =
+historyStack.join(" > ");
 
 document.getElementById("nodeTitle").innerText =
 node.title;
 
 document.getElementById("nodeSummary").innerText =
-node.summary;
+node.summary || "";
 
-const deepDive =
-document.getElementById("deepDive");
+const deepDive = document.getElementById("deepDive");
 
-deepDive.innerHTML =
-"<p>" + (node.deep_dive || "") + "</p>";
+deepDive.innerHTML = "";
 
-const connections =
-document.getElementById("connections");
+if(node.deep_dive){
+
+const p = document.createElement("p");
+
+p.innerText = node.deep_dive;
+
+deepDive.appendChild(p);
+
+}
+
+const connections = document.getElementById("connections");
 
 connections.innerHTML = "";
 
-// ===== RELATED SYSTEMS =====
-
-const related =
-calculateRelatedness(
-node.title
-.toLowerCase()
-.replaceAll(" ","_")
-);
-
-if(related.length > 0){
-
-const relatedTitle =
-document.createElement("h3");
-
-relatedTitle.innerText =
-"Related Systems";
-
-connections.appendChild(relatedTitle);
-
-related.forEach(item => {
-
-const rel =
-document.createElement("div");
-
-rel.className = "tag";
-
-rel.innerText =
-item.replaceAll("_"," ");
-
-rel.onclick = () => {
-
-Object.keys(window.ziaData.zia_system.sections)
-.forEach(sectionKey => {
-
-const section =
-window.ziaData.zia_system.sections[sectionKey];
-
-if(section.nodes && section.nodes[item]){
-
-renderNode(section.nodes[item]);
-
-}
-
-});
-
-};
-
-connections.appendChild(rel);
-
-});
-
-}
-
 if(node.connections){
 
-node.connections.forEach(link => {
+const uniqueConnections = [...new Set(node.connections)];
 
-const tag =
-document.createElement("div");
+uniqueConnections.forEach(link=>{
+
+const tag = document.createElement("button");
 
 tag.className = "tag";
 
-tag.innerText =
-link.replaceAll("_"," ");
+tag.innerText = link.replaceAll("_"," ");
 
-tag.onclick = () => {
+tag.onclick = ()=>{
 
-Object.keys(window.ziaData.zia_system.sections)
-.forEach(sectionKey => {
+Object.keys(window.ziaData.zia_system.sections).forEach(sectionKey=>{
 
-const section =
-window.ziaData.zia_system.sections[sectionKey];
+const section = window.ziaData.zia_system.sections[sectionKey];
 
-if(section.nodes && section.nodes[link]){
+Object.keys(section.nodes).forEach(nodeKey=>{
 
-renderNode(section.nodes[link]);
+const target = section.nodes[nodeKey];
 
+if(
+nodeKey.toLowerCase() === link.toLowerCase() ||
+target.title.toLowerCase() === link.toLowerCase()
+){
+renderNode(target);
 }
+
+});
 
 });
 
@@ -460,32 +561,27 @@ connections.appendChild(tag);
 
 }
 
-}
+setTimeout(()=>{
 
-loadData();
+document.getElementById("contentArea")
+.scrollIntoView({
+behavior:"smooth",
+block:"start"
+});
 
-
-document.getElementById("searchBox")
-.addEventListener("input", (e) => {
-
-const value = e.target.value;
-
-if(value.length < 2){
-return;
-}
-
-const results =
-searchOntology(value);
-
-if(results.length > 0){
-
-renderNode(results[0]);
+},100);
 
 }
+
+document
+.getElementById("searchInput")
+.addEventListener("input",(e)=>{
+
+renderSidebar(e.target.value);
 
 });
 
-
+renderSidebar();
 
 </script>
 
