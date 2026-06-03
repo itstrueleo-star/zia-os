@@ -1,95 +1,136 @@
 {
-    "zia_system": {
-        "meta": {
-            "version": "0.2",
-            "purpose": "Recursive Civilization Cognition Environment",
-            "status": "Active Development"
-        },
-        "sections": {
-            "zia_origins": {
-                "title": "ZIA Origins",
-                "summary": "Why the project was created.",
-                "nodes": {
-                    "education_failure": {
-                        "title": "Failure of Modern Education",
-                        "summary": "Subjects disconnected from reality.",
-                        "deep_dive": "Modern education isolates knowledge into artificial categories instead of interconnected systems.",
-                        "sections": {
-                            "industrial_origin": {
-                                "title": "Industrial Origin",
-                                "content": "Modern schools were designed during industrialization to produce standardized workers."
-                            },
-                            "attention_fragmentation": {
-                                "title": "Attention Fragmentation",
-                                "content": "Subjects are separated artificially, weakening systems thinking."
-                            },
-                            "credential_economy": {
-                                "title": "Credential Economy",
-                                "content": "Degrees became filtering systems instead of proof of real competence."
-                            }
-                        },
-                        "connections": [
-                            "civilization",
-                            "psychology",
-                            "media",
-                            "economics"
-                        ]
-                    },
-                    "recursive_thinking": {
-                        "title": "Recursive Thinking",
-                        "summary": "Everything affects everything else.",
-                        "connections": [
-                            "systems",
-                            "governance",
-                            "economics"
-                        ]
-                    }
-                }
+  "zia_system": {
+    "meta": {
+      "version": "0.2",
+      "purpose": "Recursive Civilization Cognition Environment",
+      "status": "Active Development"
+    },
+    "sections": {
+      "zia_origins": {
+        "title": "ZIA Origins",
+        "summary": "Why the project was created.",
+        "nodes": {
+          "education_failure": {
+            "title": "Failure of Modern Education",
+            "summary": "Subjects disconnected from reality.",
+            "deep_dive": "Modern education isolates knowledge into artificial categories instead of interconnected systems.",
+            "sections": {
+              "industrial_origin": {
+                "title": "Industrial Origin",
+                "content": "Modern schools were designed during industrialization to produce standardized workers."
+              },
+              "attention_fragmentation": {
+                "title": "Attention Fragmentation",
+                "content": "Subjects are separated artificially, weakening systems thinking."
+              },
+              "credential_economy": {
+                "title": "Credential Economy",
+                "content": "Degrees became filtering systems instead of proof of real competence."
+              }
             },
-            "civilization_systems": {
-                "title": "Civilization Systems",
-                "nodes": {
-                    "governance": {
-                        "title": "Governance",
-                        "summary": "Collective coordination mechanisms.",
-                        "history": [],
-                        "failure_patterns": [],
-                        "case_studies": [],
-                        "connections": [
-                            "law",
-                            "power",
-                            "stability"
-                        ]
-                    }
-                }
-            },
-            "deployment_architecture": {
-                "title": "Deployment Architecture",
-                "summary": "",
-                "nodes": {}
-            },
-            "collapse_systems": {
-                "title": "Collapse Systems",
-                "summary": "",
-                "nodes": {
-                    "resource_scarcity": {
-                        "title": "Resource Scarcity",
-                        "summary": "Civilizations destabilize when resources become constrained.",
-                        "deep_dive": "Scarcity creates migration pressure and instability.",
-                        "connections": [
-                            "economics",
-                            "conflict",
-                            "governance"
-                        ],
-                        "sections": {
-                            "food_systems": {
-                                "title": "Food Systems",
-                                "content": "Agriculture failures destabilized civilizations."
-                            }
-                        }
-                    }
-                }
-            }
+            "connections": [
+              "civilization",
+              "psychology",
+              "media",
+              "economics"
+            ]
+          },
+          "recursive_thinking": {
+            "title": "Recursive Thinking",
+            "summary": "Everything affects everything else.",
+            "connections": [
+              "systems",
+              "governance",
+              "economics"
+            ]
+          }
         }
+      },
+      "civilization_systems": {
+        "title": "Civilization Systems",
+        "nodes": {
+          "governance": {
+            "title": "Governance",
+            "summary": "Collective coordination mechanisms.",
+            "history": [],
+            "failure_patterns": [],
+            "case_studies": [],
+            "connections": [
+              "law",
+              "power",
+              "stability"
+            ]
+          }
+        }
+      },
+      "deployment_architecture": {
+        "title": "Deployment Architecture",
+        "summary": "",
+        "nodes": {}
+      },
+      "collapse_systems": {
+        "title": "Collapse Systems",
+        "summary": "",
+        "nodes": {
+          "resource_scarcity": {
+            "title": "Resource Scarcity",
+            "summary": "Civilizations destabilize when resources become constrained.",
+            "deep_dive": "Scarcity creates migration pressure and instability.",
+            "connections": [
+              "economics",
+              "conflict",
+              "governance"
+            ],
+            "sections": {
+              "food_systems": {
+                "title": "Food Systems",
+                "content": "Agriculture failures destabilized civilizations."
+              }
+            }
+          }
+        }
+      },
+      "Civilization Systems": {
+        "tribal_psychology": {
+          "summary": "Humans evolved through tribe-based survival behavior.",
+          "details": [
+            "Identity depended on group belonging.",
+            "Out-group fear increased survival probability.",
+            "Modern politics exploits tribal instincts."
+          ],
+          "connections": [
+            "attention_economy",
+            "narrative_control",
+            "status_hierarchies"
+          ]
+        },
+        "dopamine_feedback_loops": {
+          "summary": "Digital systems exploit reward circuitry.",
+          "details": [
+            "Unpredictable rewards increase engagement.",
+            "Infinite scrolling mimics gambling psychology.",
+            "Attention becomes chemically conditioned."
+          ],
+          "connections": [
+            "attention_economy",
+            "algorithmic_media",
+            "psychological_manipulation"
+          ]
+        },
+        "narrative_control": {
+          "summary": "Power systems shape collective perception.",
+          "details": [
+            "Narratives influence emotional interpretation.",
+            "Media systems shape public cognition.",
+            "Information warfare targets belief systems."
+          ],
+          "connections": [
+            "tribal_psychology",
+            "algorithmic_media",
+            "institutional_decay"
+          ]
+        }
+      }
     }
+  }
 }
