@@ -1,544 +1,297 @@
+
 <!DOCTYPE html>
 <html>
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>ZIA OS</title>
+
 <style>
-body{margin:0;background:#020617;color:white;font-family:Arial,sans-serif;display:flex;height:100vh;}
-.sidebar{width:320px;background:#07122b;padding:20px;overflow-y:auto;border-right:2px solid #1e293b;}
-.section{margin-bottom:20px;}
-.section-title{font-size:20px;font-weight:bold;margin-bottom:10px;color:#93c5fd;}
-.node{background:#1e293b;padding:12px;border-radius:12px;margin-bottom:10px;cursor:pointer;}
-.main{flex:1;padding:40px;overflow-y:auto;}
-.card{background:#07122b;padding:30px;border-radius:24px;}
-.subsection{margin-top:20px;padding:20px;background:#0f172a;border-radius:16px;}
-.connections{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
 
-
-.active-node{
-animation: fadeSlide 0.35s ease;
+body{
+margin:0;
+background:#020617;
+color:white;
+font-family:Arial;
+display:flex;
+height:100vh;
+overflow:hidden;
 }
 
-@keyframes fadeSlide{
-
-from{
-opacity:0;
-transform:translateX(25px);
+.sidebar{
+width:320px;
+background:#04153a;
+padding:20px;
+overflow-y:auto;
+border-right:1px solid #1e293b;
 }
 
-to{
-opacity:1;
-transform:translateX(0px);
+.content{
+flex:1;
+padding:40px;
+overflow-y:auto;
 }
 
+.section-title{
+font-size:18px;
+font-weight:bold;
+margin-top:25px;
+margin-bottom:10px;
+color:#cbd5e1;
+}
+
+.node{
+background:#1e293b;
+padding:16px;
+border-radius:12px;
+margin-bottom:12px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.node:hover{
+background:#334155;
+}
+
+.card{
+background:#07245c;
+padding:30px;
+border-radius:24px;
+max-width:700px;
+}
+
+.subsection{
+background:#0f172a;
+padding:20px;
+border-radius:16px;
+margin-top:20px;
+}
+
+.tag{
+display:inline-block;
+background:#334155;
+padding:10px 16px;
+border-radius:14px;
+margin:6px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.tag:hover{
+background:#475569;
+}
+
+#breadcrumbs{
+margin-bottom:20px;
+font-size:14px;
+opacity:0.8;
 }
 
 .breadcrumb{
 cursor:pointer;
-opacity:0.8;
-font-size:14px;
 }
 
-.breadcrumb:hover{
+.active-node{
+animation:fadeSlide 0.3s ease;
+}
+
+@keyframes fadeSlide{
+from{
+opacity:0;
+transform:translateX(20px);
+}
+to{
 opacity:1;
-text-decoration:underline;
+transform:translateX(0px);
+}
 }
 
-.tag{
-background:#1e293b;padding:10px 16px;border-radius:12px;}
 </style>
+
 </head>
+
 <body>
-<div class="sidebar">
+
+<div class="sidebar" id="sidebar">
+
 <h1>ZIA</h1>
-<div id="sidebar"></div>
+
 </div>
-<div class="main">
+
+<div class="content active-node">
+
+<div id="breadcrumbs"></div>
+
 <div class="card">
+
 <h1 id="nodeTitle">Select Node</h1>
+
 <p id="nodeSummary"></p>
+
 <div id="deepDive"></div>
-<div id="connections" class="connections"></div>
+
+<div id="connections"></div>
+
 </div>
+
 </div>
+
 <script>
-let DATA = {};
+
+
+let historyStack = [];
+
 async function loadData(){
+
 const response = await fetch("data.json");
-DATA = await response.json();
-buildSidebar();
-}
-function buildSidebar(){
+
+const data = await response.json();
+
+window.ziaData = data;
+
 const sidebar = document.getElementById("sidebar");
-const sections = DATA.zia_system.sections;
+
+const sections = data.zia_system.sections;
+
 Object.keys(sections).forEach(sectionKey => {
+
 const section = sections[sectionKey];
-const sectionDiv = document.createElement("div");
-sectionDiv.className = "section";
+
 const title = document.createElement("div");
+
 title.className = "section-title";
+
 title.innerText = section.title;
-sectionDiv.appendChild(title);
+
+sidebar.appendChild(title);
+
+if(section.nodes){
+
 Object.keys(section.nodes).forEach(nodeKey => {
+
 const node = section.nodes[nodeKey];
+
 const nodeDiv = document.createElement("div");
+
 nodeDiv.className = "node";
+
 nodeDiv.innerText = node.title;
+
 nodeDiv.onclick = () => renderNode(node);
-sectionDiv.appendChild(nodeDiv);
+
+sidebar.appendChild(nodeDiv);
+
 });
-sidebar.appendChild(sectionDiv);
-});
-}
-
-
-
-
-let historyStack = [];
-
-function renderNode(node, pushHistory = true){
-
-    if(pushHistory){
-        historyStack.push(node.title);
-    }
-
-    const breadcrumbContainer =
-        document.getElementById("breadcrumbs");
-
-    if(breadcrumbContainer){
-
-        breadcrumbContainer.innerHTML = "";
-
-        historyStack.forEach((item, index) => {
-
-            const crumb =
-                document.createElement("span");
-
-            crumb.className = "breadcrumb";
-
-            crumb.innerText = item;
-
-            crumb.onclick = () => {
-
-                const targetTitle = item;
-
-                Object.keys(window.ziaData.zia_system.sections)
-                .forEach(sectionKey => {
-
-                    const section =
-                        window.ziaData.zia_system.sections[sectionKey];
-
-                    if(section.nodes){
-
-                        Object.keys(section.nodes)
-                        .forEach(nodeKey => {
-
-                            const targetNode =
-                                section.nodes[nodeKey];
-
-                            if(targetNode.title === targetTitle){
-
-                                historyStack =
-                                    historyStack.slice(0, index + 1);
-
-                                renderNode(targetNode, false);
-
-                            }
-
-                        });
-
-                    }
-
-                });
-
-            };
-
-            breadcrumbContainer.appendChild(crumb);
-
-            if(index < historyStack.length - 1){
-
-                const separator =
-                    document.createElement("span");
-
-                separator.innerText = " > ";
-
-                breadcrumbContainer.appendChild(separator);
-
-            }
-
-        });
-
-    }
-
-    document.getElementById("nodeTitle").innerText =
-        node.title;
-
-    document.getElementById("nodeSummary").innerText =
-        node.summary;
-
-    const deepDive =
-        document.getElementById("deepDive");
-
-    deepDive.innerHTML =
-        "<p>" + (node.deep_dive || "") + "</p>";
-
-    const connections =
-        document.getElementById("connections");
-
-    connections.innerHTML = "";
-
-    if(node.connections){
-
-        node.connections.forEach(link => {
-
-            const tag =
-                document.createElement("div");
-
-            tag.className = "tag";
-
-            tag.innerText =
-                link.replaceAll("_", " ");
-
-            tag.onclick = () => {
-
-                Object.keys(window.ziaData.zia_system.sections)
-                .forEach(sectionKey => {
-
-                    const section =
-                        window.ziaData.zia_system.sections[sectionKey];
-
-                    if(section.nodes &&
-                       section.nodes[link]){
-
-                        renderNode(
-                            section.nodes[link]
-                        );
-
-                    }
-
-                });
-
-            };
-
-            connections.appendChild(tag);
-
-        });
-
-    }
 
 }
 
+});
+
+}
+
+function renderNode(node, pushHistory=true){
+
+if(pushHistory){
+historyStack.push(node.title);
+}
+
+const breadcrumbContainer =
+document.getElementById("breadcrumbs");
+
+breadcrumbContainer.innerHTML = "";
+
+historyStack.forEach((item,index)=>{
+
+const crumb = document.createElement("span");
+
+crumb.className = "breadcrumb";
+
+crumb.innerText = item;
+
+breadcrumbContainer.appendChild(crumb);
+
+if(index < historyStack.length-1){
+
+const sep = document.createElement("span");
+
+sep.innerText = " > ";
+
+breadcrumbContainer.appendChild(sep);
+
+}
+
+});
+
+const content =
+document.querySelector(".content");
+
+content.classList.remove("active-node");
+
+void content.offsetWidth;
+
+content.classList.add("active-node");
+
+document.getElementById("nodeTitle").innerText =
+node.title;
+
+document.getElementById("nodeSummary").innerText =
+node.summary;
+
+const deepDive =
+document.getElementById("deepDive");
+
+deepDive.innerHTML =
+"<p>" + (node.deep_dive || "") + "</p>";
+
+const connections =
+document.getElementById("connections");
+
+connections.innerHTML = "";
+
+if(node.connections){
+
+node.connections.forEach(link => {
+
+const tag =
+document.createElement("div");
+
+tag.className = "tag";
+
+tag.innerText =
+link.replaceAll("_"," ");
+
+tag.onclick = () => {
+
+Object.keys(window.ziaData.zia_system.sections)
+.forEach(sectionKey => {
+
+const section =
+window.ziaData.zia_system.sections[sectionKey];
+
+if(section.nodes && section.nodes[link]){
+
+renderNode(section.nodes[link]);
+
+}
+
+});
+
+};
+
+connections.appendChild(tag);
+
+});
+
+}
+
+}
 
 loadData();
+
 </script>
-</body>
-</html
 
-let historyStack = [];
-
-function renderNode(node, pushHistory = true){
-
-    if(pushHistory){
-        historyStack.push(node.title);
-    }
-
-    const breadcrumbContainer =
-        document.getElementById("breadcrumbs");
-
-    if(breadcrumbContainer){
-
-        breadcrumbContainer.innerHTML = "";
-
-        historyStack.forEach((item, index) => {
-
-            const crumb =
-                document.createElement("span");
-
-            crumb.className = "breadcrumb";
-
-            crumb.innerText = item;
-
-            crumb.onclick = () => {
-
-                const targetTitle = item;
-
-                Object.keys(window.ziaData.zia_system.sections)
-                .forEach(sectionKey => {
-
-                    const section =
-                        window.ziaData.zia_system.sections[sectionKey];
-
-                    if(section.nodes){
-
-                        Object.keys(section.nodes)
-                        .forEach(nodeKey => {
-
-                            const targetNode =
-                                section.nodes[nodeKey];
-
-                            if(targetNode.title === targetTitle){
-
-                                historyStack =
-                                    historyStack.slice(0, index + 1);
-
-                                renderNode(targetNode, false);
-
-                            }
-
-                        });
-
-                    }
-
-                });
-
-            };
-
-            breadcrumbContainer.appendChild(crumb);
-
-            if(index < historyStack.length - 1){
-
-                const separator =
-                    document.createElement("span");
-
-                separator.innerText = " > ";
-
-                breadcrumbContainer.appendChild(separator);
-
-            }
-
-        });
-
-    }
-
-    const content =
-        document.querySelector(".content");
-
-    content.classList.remove("active-node");
-
-    void content.offsetWidth;
-
-    content.classList.add("active-node");
-
-    document.getElementById("nodeTitle").innerText =
-        node.title;
-
-    document.getElementById("nodeSummary").innerText =
-        node.summary;
-
-    const deepDive =
-        document.getElementById("deepDive");
-
-    deepDive.innerHTML =
-        "<p>" + (node.deep_dive || "") + "</p>";
-
-    if(node.sections){
-
-        Object.keys(node.sections)
-        .forEach(sectionKey => {
-
-            const sec =
-                node.sections[sectionKey];
-
-            const block =
-                document.createElement("div");
-
-            block.className = "subsection";
-
-            block.innerHTML =
-                "<h3>" + sec.title + "</h3><p>" +
-                sec.content + "</p>";
-
-            deepDive.appendChild(block);
-
-        });
-
-    }
-
-    const connections =
-        document.getElementById("connections");
-
-    connections.innerHTML = "";
-
-    if(node.connections){
-
-        node.connections.forEach(link => {
-
-            const tag =
-                document.createElement("div");
-
-            tag.className = "tag";
-
-            tag.innerText =
-                link.replaceAll("_", " ");
-
-            tag.onclick = () => {
-
-                Object.keys(window.ziaData.zia_system.sections)
-                .forEach(sectionKey => {
-
-                    const section =
-                        window.ziaData.zia_system.sections[sectionKey];
-
-                    if(section.nodes &&
-                       section.nodes[link]){
-
-                        renderNode(
-                            section.nodes[link]
-                        );
-
-                    }
-
-                });
-
-            };
-
-            connections.appendChild(tag);
-
-        });
-
-    }
-
-}
-
-
-
-let historyStack = [];
-
-function renderNode(node, pushHistory = true){
-
-    if(pushHistory){
-        historyStack.push(node.title);
-    }
-
-    const breadcrumbContainer =
-        document.getElementById("breadcrumbs");
-
-    if(breadcrumbContainer){
-
-        breadcrumbContainer.innerHTML = "";
-
-        historyStack.forEach((item, index) => {
-
-            const crumb =
-                document.createElement("span");
-
-            crumb.className = "breadcrumb";
-
-            crumb.innerText = item;
-
-            crumb.onclick = () => {
-
-                const targetTitle = item;
-
-                Object.keys(window.ziaData.zia_system.sections)
-                .forEach(sectionKey => {
-
-                    const section =
-                        window.ziaData.zia_system.sections[sectionKey];
-
-                    if(section.nodes){
-
-                        Object.keys(section.nodes)
-                        .forEach(nodeKey => {
-
-                            const targetNode =
-                                section.nodes[nodeKey];
-
-                            if(targetNode.title === targetTitle){
-
-                                historyStack =
-                                    historyStack.slice(0, index + 1);
-
-                                renderNode(targetNode, false);
-
-                            }
-
-                        });
-
-                    }
-
-                });
-
-            };
-
-            breadcrumbContainer.appendChild(crumb);
-
-            if(index < historyStack.length - 1){
-
-                const separator =
-                    document.createElement("span");
-
-                separator.innerText = " > ";
-
-                breadcrumbContainer.appendChild(separator);
-
-            }
-
-        });
-
-    }
-
-    document.getElementById("nodeTitle").innerText =
-        node.title;
-
-    document.getElementById("nodeSummary").innerText =
-        node.summary;
-
-    const deepDive =
-        document.getElementById("deepDive");
-
-    deepDive.innerHTML =
-        "<p>" + (node.deep_dive || "") + "</p>";
-
-    const connections =
-        document.getElementById("connections");
-
-    connections.innerHTML = "";
-
-    if(node.connections){
-
-        node.connections.forEach(link => {
-
-            const tag =
-                document.createElement("div");
-
-            tag.className = "tag";
-
-            tag.innerText =
-                link.replaceAll("_", " ");
-
-            tag.onclick = () => {
-
-                Object.keys(window.ziaData.zia_system.sections)
-                .forEach(sectionKey => {
-
-                    const section =
-                        window.ziaData.zia_system.sections[sectionKey];
-
-                    if(section.nodes &&
-                       section.nodes[link]){
-
-                        renderNode(
-                            section.nodes[link]
-                        );
-
-                    }
-
-                });
-
-            };
-
-            connections.appendChild(tag);
-
-        });
-
-    }
-
-}
-
-
-loadData();
-</script>
 </body>
 </html>
