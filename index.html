@@ -1,98 +1,104 @@
 
-
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ZIA OS</title>
 
 <style>
 
 body{
-
-background:#050816;
-color:white;
-font-family:Arial;
-padding:20px;
-
-}
-
-.container{
-
-max-width:1000px;
-margin:auto;
-
-}
-
-.card{
-
-background:#111827;
-padding:20px;
-border-radius:16px;
-margin-top:20px;
-
-}
-
-select{
-
-width:100%;
-padding:15px;
-font-size:18px;
-background:#1f2937;
-color:white;
-border:none;
-border-radius:10px;
-
+    margin:0;
+    padding:40px;
+    background:#020617;
+    color:white;
+    font-family:Arial,sans-serif;
 }
 
 h1{
-
-font-size:52px;
-
+    font-size:72px;
+    margin-bottom:10px;
 }
 
-pre{
-
-white-space:pre-wrap;
-font-size:16px;
-line-height:1.6;
-
+.subtitle{
+    color:#cbd5e1;
+    margin-bottom:40px;
 }
 
-.link{
+.card{
+    background:#07122b;
+    border-radius:24px;
+    padding:30px;
+    margin-bottom:30px;
+}
 
-display:inline-block;
-background:#1f2937;
-padding:8px 12px;
-border-radius:10px;
-margin:5px;
+select{
+    width:100%;
+    padding:20px;
+    border-radius:16px;
+    background:#1e293b;
+    color:white;
+    border:2px solid #475569;
+    font-size:22px;
+}
 
+.summary{
+    font-size:26px;
+    line-height:1.6;
+    color:#e2e8f0;
+}
+
+.connections{
+    margin-top:30px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+}
+
+.tag{
+    background:#1e293b;
+    padding:14px 20px;
+    border-radius:14px;
+    font-size:20px;
+}
+
+@media(max-width:768px){
+
+    body{
+        padding:20px;
+    }
+
+    h1{
+        font-size:54px;
+    }
+
+    .summary{
+        font-size:20px;
+    }
+
+    .tag{
+        font-size:16px;
+    }
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
-
 <h1>ZIA OS</h1>
 
-<p>Recursive Civilization Cognition Environment</p>
+<div class="subtitle">
+Recursive Civilization Cognition Environment
+</div>
 
 <div class="card">
 
 <h2>Select Node</h2>
 
-<select id="nodeSelect"></select>
+<select id="nodeSelector"></select>
 
 </div>
 
@@ -100,90 +106,70 @@ margin:5px;
 
 <h2>Node Summary</h2>
 
-<pre id="summary"></pre>
+<div id="summary" class="summary"></div>
 
-<h2>Connected Systems</h2>
+<h2 style="margin-top:40px;">Connected Systems</h2>
 
-<div id="links"></div>
-
-</div>
+<div id="connections" class="connections"></div>
 
 </div>
 
 <script>
 
-fetch("data.json")
+let ziaData = {};
 
-.then(response => response.json())
+async function loadData(){
 
-.then(data => {
+    const response = await fetch("data.json");
+    ziaData = await response.json();
 
-const select =
-document.getElementById("nodeSelect");
+    const selector = document.getElementById("nodeSelector");
 
-const summary =
-document.getElementById("summary");
+    Object.keys(ziaData).forEach(node => {
 
-const links =
-document.getElementById("links");
+        const option = document.createElement("option");
+        option.value = node;
+        option.textContent = node;
 
-data.nodes.forEach(node => {
+        selector.appendChild(option);
 
-const option =
-document.createElement("option");
+    });
 
-option.value = node.id;
+    selector.addEventListener("change", () => {
+        renderNode(selector.value);
+    });
 
-option.textContent = node.title;
-
-select.appendChild(option);
-
-});
-
-function updateNode(){
-
-const selectedId =
-parseInt(select.value);
-
-const node =
-data.nodes.find(
-n => n.id === selectedId
-);
-
-summary.textContent =
-node.summary;
-
-links.innerHTML = "";
-
-node.links.forEach(link => {
-
-const div =
-document.createElement("div");
-
-div.className = "link";
-
-div.textContent = link;
-
-links.appendChild(div);
-
-});
+    renderNode(Object.keys(ziaData)[0]);
 
 }
 
-select.addEventListener(
-"change",
-updateNode
-);
+function renderNode(node){
 
-select.value = 1;
+    const data = ziaData[node];
 
-updateNode();
+    document.getElementById("summary").innerText = data.summary;
 
-});
+    const container = document.getElementById("connections");
+
+    container.innerHTML = "";
+
+    data.connections.forEach(item => {
+
+        const tag = document.createElement("div");
+
+        tag.className = "tag";
+
+        tag.innerText = item;
+
+        container.appendChild(tag);
+
+    });
+
+}
+
+loadData();
 
 </script>
 
 </body>
-
 </html>
-

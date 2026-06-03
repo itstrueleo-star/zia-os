@@ -1,52 +1,29 @@
 {
-    "nodes": [
-        {
-            "id": 1,
-            "title": "Civilization",
-            "type": "core_system",
-            "summary": "Large scale human coordination structure.",
-            "links": [
-                "Governance",
-                "Economics",
-                "Culture",
-                "Technology"
-            ]
-        },
-        {
-            "id": 2,
-            "title": "Governance",
-            "type": "system",
-            "summary": "Mechanism for organizing collective decision making.",
-            "links": [
-                "Civilization",
-                "Law",
-                "Power",
-                "Stability"
-            ]
-        },
-        {
-            "id": 3,
-            "title": "Collapse Systems",
-            "type": "risk_system",
-            "summary": "Patterns that destabilize civilizations.",
-            "links": [
-                "Governance",
-                "Resource Scarcity",
-                "Conflict",
-                "Climate"
-            ]
-        },
-        {
-            "id": 4,
-            "title": "Recovery Systems",
-            "type": "resilience_system",
-            "summary": "Mechanisms that restore civilization stability.",
-            "links": [
-                "Distributed Systems",
-                "Resilience",
-                "Governance",
-                "Infrastructure"
-            ]
-        }
+  "Civilization": {
+    "summary": "Large scale human coordination structure.",
+    "connections": [
+      "Governance",
+      "Economics",
+      "Culture",
+      "Technology"
     ]
+  },
+  "Governance": {
+    "summary": "Mechanism for organizing collective decision making.",
+    "connections": [
+      "Civilization",
+      "Law",
+      "Power",
+      "Stability"
+    ]
+  },
+  "Collapse Systems": {
+    "summary": "Patterns that destabilize civilizations.",
+    "connections": [
+      "Governance",
+      "Resource Scarcity",
+      "Conflict",
+      "Climate"
+    ]
+  }
 }
